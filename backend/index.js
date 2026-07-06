@@ -5,10 +5,11 @@ const mongoose=require("mongoose");
 const cors=require("cors");
 const bodyParser=require("body-parser");
 
-const { HoldingModel } = require('./model/HoldingModel');
-const { PositionsModel } = require('./model/PositionsModel');
-const {OrdersModel} = require('./model/OrdersModel');
-
+const  HoldingModel  = require('./model/HoldingModel');
+const  PositionsModel  = require('./model/PositionsModel');
+const OrdersModel = require('./model/OrdersModel');
+const  UserModel  = require("./model/UserModel");
+const  PaperTradingModel  = require("./model/PaperTradingModel");
 
 const PORT= process.env.PORT || 3002;
 const uri=process.env.MONGO_URL;
@@ -200,23 +201,131 @@ app.get("/allPositions",async(req,res)=>{
 })
 
 app.post("/newOrder",async (req,res)=>{
+    console.log(req.body);
    try {
+
+    // total cost 
+    const totalCost= Number(req.body.qty) * Number(req.body.price);
+
+  console.log("Searching for userId:", req.body.userId);
+
+    const allWallets = await PaperTradingModel.find();
+
+    console.log(
+        "All Wallets:",
+        allWallets.map((w) => ({
+            userId: w.userId.toString(),
+            balance: w.balance,
+        }))
+    );
+
+    const wallet = await PaperTradingModel.findOne({
+        userId: req.body.userId,
+    });
+
+    console.log("Wallet Found:", wallet);
+
+    if (!wallet) {
+        return res.status(404).json({
+            message: "wallet not found",
+        });
+    }
+
+    if(wallet.balance < totalCost){
+        return res.status(400).json({
+            message:"Insufficient balance",
+        });
+    }
+    
+    wallet.balance -= totalCost;
+
+    await wallet.save();
+
     let newOrder = new OrdersModel({
+      userId:req.body.userId,  
       name: req.body.name,
       qty: req.body.qty,
       price: req.body.price,
       mode: req.body.mode,
     });
-
+    console.log(newOrder);
     await newOrder.save();  // important to await
 
     res.json({ message: "Order created successfully" });
   } catch (err) {
-    res.status(500).json({ error: "Failed to create order" });
-  }
+        console.log(err);          // Print the complete error
+        console.log(err.message);  // Print just the message
+
+        res.status(500).json({
+            error: err.message,
+        });
+    }
 });
 
+// New user( Sign up )
+app.post("/newUser",async (req,res)=>{
 
+    console.log("Signup root hit");
+    try{
+
+        const existingUser = await UserModel.findOne({email :req.body.email});
+
+        if(existingUser){
+            return res.status(400).json({message : "User already exists"});
+        }
+
+
+        let newUser=new UserModel({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+        });
+
+        await newUser.save();
+
+        const paperTrading= new PaperTradingModel({
+            userId: newUser._id,
+        });
+
+        await paperTrading.save();
+
+        res.json({ message : "Done"});
+    } catch (err){
+        res.status(500).json({ error: err.message });
+    }
+})
+
+app.post("/login",async(req,res)=>{
+    try{
+        const user=await UserModel.findOne({email: req.body.email});
+        
+        console.log("Email:", req.body.email);
+        console.log("Password:", req.body.password);
+
+        if(!user){
+            return res.status(404).json({
+                message: "User not found",
+            });
+        }
+
+        if(user.password !== req.body.password){
+            return res.status(400).json({ message: "Invalid password"});
+        }
+        
+        console.log("Logged in user:", user);
+
+        res.status(200).json({
+        message: "Login successful",
+        user,
+        });
+    }catch (err) {
+        res.status(500).json({
+        message: "Server Error",
+        });
+    }
+
+   
+});
 // app.listen(PORT,()=>{
 //     console.log("app started");
 //     mongoose.connect(process.env.MONGO_URL)
@@ -231,6 +340,8 @@ mongoose.connect(process.env.MONGO_URL)
 
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
+        console.log("Connected DB:", mongoose.connection.name);
+       
     });
 })
 .catch((err) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
@@ -8,22 +8,39 @@ import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css";
 
 const BuyActionWindow = ({ uid }) => {
+
+  const { closeBuyWindow } = useContext(GeneralContext);
+
   const [stockQuantity, setStockQuantity] = useState(1);
-  const [stockPrice, setStockPrice] = useState(0.0);
+  const [stockPrice, setStockPrice] = useState(0);
 
-  const handleBuyClick = () => {
-    axios.post("http://localhost:3002/newOrder", {
-      name: uid,
-      qty: stockQuantity,
-      price: stockPrice,
-      mode: "BUY",
-    });
+  const handleBuyClick = async () => {
+    //console.log("Step 1: Buy button clicked");
 
-    GeneralContext.closeBuyWindow();
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    console.log("LocalStorage User:", loggedInUser);
+    console.log("Sending userId:", loggedInUser._id);
+
+    try {
+        const response = await axios.post("http://localhost:3002/newOrder", {
+            userId: loggedInUser._id,
+            name: uid,
+            qty: stockQuantity,
+            price: stockPrice,
+            mode: "BUY",
+        });
+
+        console.log("Step 3:", response.data);
+
+        closeBuyWindow();
+
+    } catch (err) {
+        console.log("Step 4:", err.response?.data || err.message);
+    }
   };
 
   const handleCancelClick = () => {
-    GeneralContext.closeBuyWindow();
+    closeBuyWindow();
   };
 
   return (
@@ -57,12 +74,12 @@ const BuyActionWindow = ({ uid }) => {
       <div className="buttons">
         <span>Margin required ₹140.65</span>
         <div>
-          <Link className="btn btn-blue" onClick={handleBuyClick}>
+          <button className="btn btn-blue" onClick={handleBuyClick}>
             Buy
-          </Link>
-          <Link to="" className="btn btn-grey" onClick={handleCancelClick}>
+          </button>
+          <button to="" className="btn btn-grey" onClick={handleCancelClick}>
             Cancel
-          </Link>
+          </button>
         </div>
       </div>
     </div>

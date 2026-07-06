@@ -7,6 +7,12 @@ const HoldingSchema= new Schema({
     price: Number,
     net: String,
     day: String,
+
+    userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+   },
 });
 
 module.exports={HoldingSchema};
