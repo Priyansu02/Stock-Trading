@@ -8,7 +8,7 @@ function Navbar() {
             <div class="container">
                 <Link className="navbar-brand" to="/">
                     
-                    <img src='media/photos/logo.svg' style={{width:"30%"}} /></Link>
+                    <img src='media/photos/tradeNova.png' style={{width:"30%"}} /></Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>

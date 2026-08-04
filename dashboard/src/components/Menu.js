@@ -1,10 +1,22 @@
-import React, { useState } from "react";
-
+import React, { useState ,useEffect} from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("dashboardUserId");
+
+    if (!userId) return;
+
+    axios
+        .get(`http://localhost:3002/user/${userId}`)
+        .then((res) => setUser(res.data))
+        .catch(console.error);
+  }, []);
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
@@ -69,7 +81,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="funds"
+              to="/funds"
               onClick={() => handleMenuClick(4)}
             >
               <p className={selectedMenu === 4 ? activeMenuClass : menuClass}>
@@ -79,21 +91,46 @@ const Menu = () => {
           </li>
           <li>
             <Link
-              style={{ textDecoration: "none" }}
-              to="/apps"
-              onClick={() => handleMenuClick(6)}
+                style={{ textDecoration: "none" }}
+                to="/transactions"
             >
-              <p className={selectedMenu === 6 ? activeMenuClass : menuClass}>
-                Apps
-              </p>
+                <p className={menuClass}>
+                    Transactions
+                </p>
             </Link>
-          </li>
+        </li>
         </ul>
         <hr />
-        <div className="profile" onClick={handleProfileClick}>
-          <div className="avatar">ZU</div>
-          <p className="username">USERID</p>
-        </div>
+       <div className="profile">
+    <Link
+      to="/profile"
+      className="profile-link"
+    >
+      <div className="profile-avatar">
+        {user ? user.name.charAt(0).toUpperCase() : "U"}
+      </div>
+
+      <div className="profile-details">
+        {/* <p className="username">
+          {user ? user.name : "Loading..."}
+        </p> */}
+
+       
+      </div>
+    </Link>
+
+  <button
+  onClick={() => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("dashboardUserId");
+    localStorage.removeItem("loggedInUser");
+
+    window.location.href = "http://localhost:3000/login";
+  }}
+>
+  Logout
+</button>
+</div>
       </div>
     </div>
   );

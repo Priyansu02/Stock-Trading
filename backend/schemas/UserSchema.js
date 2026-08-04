@@ -18,10 +18,7 @@ const UserSchema = new Schema({
         required: true,
     },
 
-    balance: {
-        type: Number,
-        default: 100000,
-    },
+  
 });
 
 module.exports={UserSchema};

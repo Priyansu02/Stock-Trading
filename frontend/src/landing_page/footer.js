@@ -5,9 +5,9 @@ function Footer() {
         <div className='container'>
             <div className='row'>
                 <div className='col'>
-                     <img src='media/photos/logo.svg' style={{width:"30%"}} />
+                     <img src='media/photos/tradeNova.png' style={{width:"30%"}} />
                      <p>
-                        &copy; 2010-2024, not Zeodha Broking Ltd,All rights reserved. 
+                        &copy; 2010-2024, not TradeNova Broking Ltd,All rights reserved. 
                      </p>
 
                 </div>
@@ -22,9 +22,9 @@ function Footer() {
                     <br/>
                     <a href="">Careers</a>
                     <br/>
-                    <a href="">Zerodha Cares (CSR)</a>
+                    <a href="">TradeNova Cares (CSR)</a>
                     <br/>
-                    <a href="">Zerodha.tech</a>
+                    <a href="">TradeNova.tech</a>
                     <br/>
                     <a href="">Open source</a>
                     <br/>
@@ -61,11 +61,11 @@ function Footer() {
 
  <p>India's largest broker based on networth as per NSE. NSE broker factsheet</p>
 
- <p>"Prevent unauthorised transactions in your account. Update your mobile numbers/email IDs with your stock brokers. Receive information of your transactions directly from Exchange on your mobile/email at the end of the day. Issued in the interest of investors. KYC is one time exercise while dealing in securities markets - once KYC is done through a SEBI registered intermediary (broker, DP, Mutual Fund etc.), you need not undergo the same process again when you approach another intermediary." Dear Investor, if you are subscribing to an IPO, there is no need to issue a cheque. Please write the Bank account number and sign the IPO application form to authorize your bank to make payment in case of allotment. In case of non allotment the funds will remain in your bank account. As a business we don't give stock tips, and have not authorized anyone to trade on behalf of others. If you find anyone claiming to be part of Zerodha and offering such services, please create a ticket here.</p>
+ <p>"Prevent unauthorised transactions in your account. Update your mobile numbers/email IDs with your stock brokers. Receive information of your transactions directly from Exchange on your mobile/email at the end of the day. Issued in the interest of investors. KYC is one time exercise while dealing in securities markets - once KYC is done through a SEBI registered intermediary (broker, DP, Mutual Fund etc.), you need not undergo the same process again when you approach another intermediary." Dear Investor, if you are subscribing to an IPO, there is no need to issue a cheque. Please write the Bank account number and sign the IPO application form to authorize your bank to make payment in case of allotment. In case of non allotment the funds will remain in your bank account. As a business we don't give stock tips, and have not authorized anyone to trade on behalf of others. If you find anyone claiming to be part of TradeNova and offering such services, please create a ticket here.</p>
 
  <p>*Customers availing insurance advisory services offered by Ditto (Tacterial Consulting Private Limited | IRDAI Registered Corporate Agent (Composite) License No CA0738) will not have access to the exchange investor grievance redressal forum, SEBI SCORES/ODR, or arbitration mechanism for such products.</p>
 
- <p>Fixed deposit products offered on this platform are third-party products (TPP) and are not Exchange traded products. These are offered through Blostem Fintech Private Limited. Zerodha Broking Limited (SEBI Registration No.: INZ000031633) is acting solely as a distributor for these products. Any disputes arising with respect to such distribution activity will not have access to SEBI SCORES/ODR, Exchange Investor Grievance Redressal Forum, or Arbitration mechanism. Fixed deposits are regulated by the Reserve Bank of India (RBI).</p>
+ <p>Fixed deposit products offered on this platform are third-party products (TPP) and are not Exchange traded products. These are offered through Blostem Fintech Private Limited. TradeNova Broking Limited (SEBI Registration No.: INZ000031633) is acting solely as a distributor for these products. Any disputes arising with respect to such distribution activity will not have access to SEBI SCORES/ODR, Exchange Investor Grievance Redressal Forum, or Arbitration mechanism. Fixed deposits are regulated by the Reserve Bank of India (RBI).</p>
                 </div>
             </div>
 

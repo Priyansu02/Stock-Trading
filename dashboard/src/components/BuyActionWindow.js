@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-
+//const { closeBuyWindow, triggerRefresh } = useContext(GeneralContext);
 import axios from "axios";
 
 import GeneralContext from "./GeneralContext";
@@ -9,33 +9,63 @@ import "./BuyActionWindow.css";
 
 const BuyActionWindow = ({ uid }) => {
 
-  const { closeBuyWindow } = useContext(GeneralContext);
+  const { closeBuyWindow, triggerRefresh } = useContext(GeneralContext);
 
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0);
 
+
+  //const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+  const userId = localStorage.getItem("dashboardUserId");
+
+  console.log("dashboardUserId:", userId);
+  console.log("Current URL:", window.location.href);
+  console.log("All localStorage:", localStorage);
+
+
+  // console.log("Current Origin:", window.location.origin);
+  // console.log("Logged User:", loggedInUser);
+
   const handleBuyClick = async () => {
     //console.log("Step 1: Buy button clicked");
 
-    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    console.log("LocalStorage User:", loggedInUser);
-    console.log("Sending userId:", loggedInUser._id);
+   // const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    //console.log("LocalStorage User:", loggedInUser);
+    //console.log("Sending userId:", loggedInUser._id);
 
     try {
-        const response = await axios.post("http://localhost:3002/newOrder", {
-            userId: loggedInUser._id,
-            name: uid,
-            qty: stockQuantity,
-            price: stockPrice,
-            mode: "BUY",
-        });
 
+        if (!userId) {
+          alert("User not logged in.");
+          return;
+        } 
+
+        const token = localStorage.getItem("token");
+
+        const response = await axios.post(
+            "http://localhost:3002/newOrder",
+            {
+                name: uid,
+                qty: stockQuantity,
+                price: stockPrice,
+                mode: "BUY",
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        
         console.log("Step 3:", response.data);
-
+        triggerRefresh();
         closeBuyWindow();
 
     } catch (err) {
-        console.log("Step 4:", err.response?.data || err.message);
+       
+        alert(err.response?.data?.message || "Something went wrong");
+
     }
   };
 

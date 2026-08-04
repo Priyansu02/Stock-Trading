@@ -14,6 +14,9 @@ import NotFound from './landing_page/NotFound';
 import Login from './landing_page/login/Login';
 
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
@@ -27,6 +30,7 @@ root.render(
          <Route path='/login' element={<Login/>}/>
          <Route path='/support' element={<SupportPage/>} />
          <Route path='*' element={<NotFound/>} />
+         
       </Routes>
       <Footer/>
   </BrowserRouter>

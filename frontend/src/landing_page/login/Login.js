@@ -61,7 +61,19 @@ function Login(){
                     JSON.stringify(response.data.user)
                 );
 
-                window.location.href = "http://localhost:3001";
+                localStorage.setItem(
+                    "token",
+                    response.data.token
+                );
+
+                console.log("JWT Token:", response.data.token);
+console.log("Stored Token:", localStorage.getItem("token"));
+
+                const DASHBOARD_URL = "http://localhost:3001";
+
+                window.location.href =
+                `${DASHBOARD_URL}/?userId=${response.data.user._id}&token=${response.data.token}`;
+              
 
             }catch(error){
                 console.error(error);

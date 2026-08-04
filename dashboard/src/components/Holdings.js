@@ -1,23 +1,38 @@
 import React, { useState, useEffect } from "react";
 import axios, { all } from "axios";
 import { VerticalGraph } from "./VerticalGraph";
-
+import { useContext } from "react";
+import GeneralContext from "./GeneralContext";
 // import { holdings } from "../data/data";
 
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
-
+  const { refreshHoldings } = useContext(GeneralContext);
   useEffect(() => {
-    axios.get("http://localhost:3002/allHoldings").then((res) => {
-      // console.log(res.data);
-      setAllHoldings(res.data);
-    });
-  }, []);
 
-  // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    const token= localStorage.getItem("token");
+
+    axios.get("http://localhost:3002/allHoldings",{
+      headers:{
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    .then((res) =>{
+        setAllHoldings(res.data);
+    })
+
+    .catch((err)=>{
+      console.log("Holdings error:",err);
+    });
+
+  }, [refreshHoldings]);
+
+  
   const labels = allHoldings.map((subArray) => subArray["name"]);
 
   const data = {
+
     labels,
     datasets: [
       {
@@ -28,21 +43,24 @@ const Holdings = () => {
     ],
   };
 
-  // export const data = {
-  //   labels,
-  //   datasets: [
-  // {
-  //   label: 'Dataset 1',
-  //   data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-  //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
-  // },
-  //     {
-  //       label: 'Dataset 2',
-  //       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-  //       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-  //     },
-  //   ],
-  // };
+    const totalInvestment = allHoldings.reduce(
+      (sum, stock) => sum + stock.avg * stock.qty,
+      0
+    );
+
+    const currentValue = allHoldings.reduce(
+      (sum, stock) => sum + stock.price * stock.qty,
+      0
+    );
+
+    const profitLoss = currentValue - totalInvestment;
+
+    const profitPercentage =
+      totalInvestment > 0
+        ? ((profitLoss / totalInvestment) * 100).toFixed(2)
+        : 0;
+
+ 
 
   return (
     <>
@@ -87,19 +105,15 @@ const Holdings = () => {
 
       <div className="row">
         <div className="col">
-          <h5>
-            29,875.<span>55</span>{" "}
-          </h5>
-          <p>Total investment</p>
+         <h5>₹{totalInvestment.toFixed(2)}</h5>
+            <p>Total Investment</p>
         </div>
         <div className="col">
-          <h5>
-            31,428.<span>95</span>{" "}
-          </h5>
+         <h5>₹{currentValue.toFixed(2)}</h5>
           <p>Current value</p>
         </div>
         <div className="col">
-          <h5>1,553.40 (+5.20%)</h5>
+          <h5>₹{profitLoss.toFixed(2)} ({profitPercentage}%)</h5>
           <p>P&L</p>
         </div>
       </div>
