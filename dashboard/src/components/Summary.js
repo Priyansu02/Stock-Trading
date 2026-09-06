@@ -41,7 +41,7 @@ const Summary = () => {
 
   // Dashboard
   axios
-    .get(`http://localhost:3002/dashboard/${userId}`, config)
+    .get("http://localhost:3002/dashboard", config)
     .then((res) => {
       setDashboard(res.data);
     })
@@ -54,7 +54,7 @@ const Summary = () => {
 
   // User
   axios
-    .get(`http://localhost:3002/user/${userId}`, config)
+    .get("http://localhost:3002/user", config)
     .then((res) => {
       setUser(res.data);
     })
@@ -67,7 +67,7 @@ const Summary = () => {
 
   // Holdings
   axios
-    .get(`http://localhost:3002/holdings/${userId}`, config)
+    .get("http://localhost:3002/allHoldings", config)
     .then((res) => {
       setHoldingsCount(res.data.length);
     })

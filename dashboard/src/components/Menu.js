@@ -2,6 +2,8 @@ import React, { useState ,useEffect} from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
@@ -107,7 +109,7 @@ const Menu = () => {
       className="profile-link"
     >
       <div className="profile-avatar">
-        {user ? user.name.charAt(0).toUpperCase() : "U"}
+       {loggedInUser?.name?.charAt(0).toUpperCase()}
       </div>
 
       <div className="profile-details">

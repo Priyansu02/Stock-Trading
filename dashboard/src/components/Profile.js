@@ -22,7 +22,7 @@ const Profile =()=>{
         };
 
         axios
-            .get(`http://localhost:3002/user/${userId}`, config)
+            .get("http://localhost:3002/user", config)
             .then((res) => {
                 setUser(res.data);
             })
@@ -48,7 +48,7 @@ const Profile =()=>{
 
         // Holdings
         axios
-            .get(`http://localhost:3002/holdings/${userId}`, config)
+           .get("http://localhost:3002/allHoldings", config)
             .then((res) => {
                 setHoldings(res.data);
             })
@@ -61,7 +61,7 @@ const Profile =()=>{
 
         // Orders
         axios
-            .get(`http://localhost:3002/orders/${userId}`, config)
+            .get("http://localhost:3002/allOrders", config)
             .then((res) => {
                 setOrders(res.data);
             })

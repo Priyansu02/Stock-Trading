@@ -455,5 +455,5 @@ mongoose.connect(process.env.MONGO_URL)
     });
 })
 .catch((err) => {
-    alert(err.response?.data?.message || "Something went wrong");
+     console.error(err);
 });
