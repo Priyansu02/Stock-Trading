@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios, { all } from "axios";
+import axios from "axios";
 import { VerticalGraph } from "./VerticalGraph";
 import { useContext } from "react";
 import GeneralContext from "./GeneralContext";
@@ -12,7 +12,7 @@ const Holdings = () => {
 
     const token= localStorage.getItem("token");
 
-    axios.get("http://localhost:3002/allHoldings",{
+    axios.get("https://stock-trading-bksj.onrender.com/allHoldings",{
       headers:{
         Authorization: `Bearer ${token}`,
       },

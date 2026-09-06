@@ -13,7 +13,7 @@ const Funds = () => {
 
     const token = localStorage.getItem("token");
 
-    axios.get("http://localhost:3002/wallet", {
+    axios.get("https://stock-trading-bksj.onrender.com/wallet", {
         headers: {
             Authorization: `Bearer ${token}`,
         },

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+
 //const { closeBuyWindow, triggerRefresh } = useContext(GeneralContext);
 import axios from "axios";
 
@@ -44,7 +44,7 @@ const BuyActionWindow = ({ uid }) => {
         const token = localStorage.getItem("token");
 
         const response = await axios.post(
-            "http://localhost:3002/newOrder",
+            "https://stock-trading-bksj.onrender.com/newOrder",
             {
                 name: uid,
                 qty: stockQuantity,

@@ -1,31 +1,13 @@
-import React, { useState ,useEffect} from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const userId = localStorage.getItem("dashboardUserId");
-
-    if (!userId) return;
-
-    axios
-        .get(`http://localhost:3002/user/${userId}`)
-        .then((res) => setUser(res.data))
-        .catch(console.error);
-  }, []);
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
-  };
-
-  const handleProfileClick = (index) => {
-    setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
   const menuClass = "menu";
@@ -33,7 +15,8 @@ const Menu = () => {
 
   return (
     <div className="menu-container">
-      <img src="logo.png" style={{ width: "50px" }} />
+      <img src="logo.png" alt="" style={{ width: "50px" }} />
+
       <div className="menus">
         <ul>
           <li>
@@ -47,6 +30,7 @@ const Menu = () => {
               </p>
             </Link>
           </li>
+
           <li>
             <Link
               style={{ textDecoration: "none" }}
@@ -58,6 +42,7 @@ const Menu = () => {
               </p>
             </Link>
           </li>
+
           <li>
             <Link
               style={{ textDecoration: "none" }}
@@ -69,6 +54,7 @@ const Menu = () => {
               </p>
             </Link>
           </li>
+
           <li>
             <Link
               style={{ textDecoration: "none" }}
@@ -80,6 +66,7 @@ const Menu = () => {
               </p>
             </Link>
           </li>
+
           <li>
             <Link
               style={{ textDecoration: "none" }}
@@ -91,48 +78,43 @@ const Menu = () => {
               </p>
             </Link>
           </li>
+
           <li>
             <Link
-                style={{ textDecoration: "none" }}
-                to="/transactions"
+              style={{ textDecoration: "none" }}
+              to="/transactions"
             >
-                <p className={menuClass}>
-                    Transactions
-                </p>
+              <p className={menuClass}>Transactions</p>
             </Link>
-        </li>
+          </li>
         </ul>
+
         <hr />
-       <div className="profile">
-    <Link
-      to="/profile"
-      className="profile-link"
-    >
-      <div className="profile-avatar">
-       {loggedInUser?.name?.charAt(0).toUpperCase()}
-      </div>
 
-      <div className="profile-details">
-        {/* <p className="username">
-          {user ? user.name : "Loading..."}
-        </p> */}
+        <div className="profile">
+          <Link
+            to="/profile"
+            className="profile-link"
+          >
+            <div className="profile-avatar">
+              {loggedInUser?.name?.charAt(0).toUpperCase()}
+            </div>
 
-       
-      </div>
-    </Link>
+            <div className="profile-details"></div>
+          </Link>
 
-  <button
-  onClick={() => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("dashboardUserId");
-    localStorage.removeItem("loggedInUser");
+          <button
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("dashboardUserId");
+              localStorage.removeItem("loggedInUser");
 
-    window.location.href = "http://localhost:3000/login";
-  }}
->
-  Logout
-</button>
-</div>
+              window.location.href = "http://localhost:3000/login";
+            }}
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   );

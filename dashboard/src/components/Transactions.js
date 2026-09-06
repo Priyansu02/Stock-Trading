@@ -11,7 +11,7 @@ const Transactions = () => {
                 const token = localStorage.getItem("token");
 
                 const response = await axios.get(
-                    "http://localhost:3002/allTransactions",
+                    "https://stock-trading-bksj.onrender.com/allTransactions",
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,

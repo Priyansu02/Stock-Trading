@@ -1,9 +1,8 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+
 
 import axios from "axios";
 
-import GeneralContext from "./GeneralContext";
 
 import "./BuyActionWindow.css";
 
@@ -36,7 +35,7 @@ const SellActionWindow = ({ uid ,closeSellWindow  }) => {
         const token = localStorage.getItem("token");
         console.log("Sell JWT:", token);
         const response = await axios.post(
-            "http://localhost:3002/sellOrder",
+            "https://stock-trading-bksj.onrender.com/sellOrder",
             {
                 name: uid,
                 qty: stockQuantity,

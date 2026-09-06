@@ -28,7 +28,7 @@ const Summary = () => {
 
  // Wallet - JWT protected
   axios
-    .get("http://localhost:3002/wallet", config)
+    .get("https://stock-trading-bksj.onrender.com/wallet", config)
     .then((res) => {
       setWallet(res.data);
     })
@@ -41,7 +41,7 @@ const Summary = () => {
 
   // Dashboard
   axios
-    .get("http://localhost:3002/dashboard", config)
+    .get("https://stock-trading-bksj.onrender.com/dashboard", config)
     .then((res) => {
       setDashboard(res.data);
     })
@@ -54,7 +54,7 @@ const Summary = () => {
 
   // User
   axios
-    .get("http://localhost:3002/user", config)
+    .get("https://stock-trading-bksj.onrender.com/user", config)
     .then((res) => {
       setUser(res.data);
     })
@@ -67,7 +67,7 @@ const Summary = () => {
 
   // Holdings
   axios
-    .get("http://localhost:3002/allHoldings", config)
+    .get("https://stock-trading-bksj.onrender.com/allHoldings", config)
     .then((res) => {
       setHoldingsCount(res.data.length);
     })

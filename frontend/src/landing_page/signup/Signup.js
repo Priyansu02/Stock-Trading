@@ -39,7 +39,7 @@ function Signup() {
 
         try{
             const response= await axios.post(
-                "http://localhost:3002/newUser",
+                "https://stock-trading-bksj.onrender.com/newUser",
                 {
                     name:formData.name,
                     email:formData.email,

@@ -22,7 +22,7 @@ const Profile =()=>{
         };
 
         axios
-            .get("http://localhost:3002/user", config)
+            .get("https://stock-trading-bksj.onrender.com/user", config)
             .then((res) => {
                 setUser(res.data);
             })
@@ -35,7 +35,7 @@ const Profile =()=>{
 
         // Wallet
         axios
-            .get("http://localhost:3002/wallet", config)
+            .get("https://stock-trading-bksj.onrender.com/wallet", config)
             .then((res) => {
                 setWallet(res.data);
             })
@@ -48,7 +48,7 @@ const Profile =()=>{
 
         // Holdings
         axios
-           .get("http://localhost:3002/allHoldings", config)
+           .get("https://stock-trading-bksj.onrender.com/allHoldings", config)
             .then((res) => {
                 setHoldings(res.data);
             })
@@ -61,7 +61,7 @@ const Profile =()=>{
 
         // Orders
         axios
-            .get("http://localhost:3002/allOrders", config)
+            .get("https://stock-trading-bksj.onrender.com/allOrders", config)
             .then((res) => {
                 setOrders(res.data);
             })
