@@ -69,10 +69,10 @@ function Login(){
                 console.log("JWT Token:", response.data.token);
 console.log("Stored Token:", localStorage.getItem("token"));
 
-                const DASHBOARD_URL = "https://tradenova-i7osphvh1-priyansu02.vercel.app";
+                const DASHBOARD_URL = "https://tradenova-pi.vercel.app";
 
                 window.location.href =
-                `${DASHBOARD_URL}/?userId=${response.data.user._id}&token=${response.data.token}`;
+                    `${DASHBOARD_URL}/?userId=${response.data.user._id}&token=${response.data.token}`;
               
 
             }catch(error){
