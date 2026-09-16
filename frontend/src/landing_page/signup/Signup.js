@@ -72,8 +72,8 @@ function Signup() {
             <div className="row justify-content-center">
                 <div className="col-md-5">
                     <div className="card shadow-lg p-4">
-                        <input type="textform-control "
-                         className="mb-3"
+                        <input type="text "
+                         className=" form-control mb-3"
                           placeholder="Full Name"
                           name="name"
                           value={formData.name}
