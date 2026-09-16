@@ -69,7 +69,7 @@ function Login(){
                 console.log("JWT Token:", response.data.token);
 console.log("Stored Token:", localStorage.getItem("token"));
 
-                const DASHBOARD_URL = "http://localhost:3001";
+                const DASHBOARD_URL = "https://tradenova-i7osphvh1-priyansu02.vercel.app";
 
                 window.location.href =
                 `${DASHBOARD_URL}/?userId=${response.data.user._id}&token=${response.data.token}`;
